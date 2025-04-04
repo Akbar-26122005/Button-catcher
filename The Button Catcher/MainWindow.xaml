@@ -1,0 +1,92 @@
+﻿<Window x:Class="The_Button_Catcher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:The_Button_Catcher"
+        mc:Ignorable="d" Icon="/images/extension.png"
+        Title="The Button Catcher" Height="500" Width="800">
+    <Window.Resources>
+        <Storyboard x:Key="IncreasingTransparency">
+            <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetProperty="Opacity" />
+        </Storyboard>
+        <Storyboard x:Key="ReducingTransparency">
+            <DoubleAnimation To="0" Duration="0:0:0.3" Storyboard.TargetProperty="Opacity" />
+        </Storyboard>
+
+        <ControlTemplate x:Key="CustomButtonTemplate" TargetType="Button">
+            <Border Background="{TemplateBinding Background}" Cursor="Hand"
+                Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="MenuButtonTemplate" TargetType="Button">
+            <Border Background="DarkGreen" Width="80" Height="80" CornerRadius="12" Cursor="Hand">
+                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Border>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="levelSelectionButtonTemplate" TargetType="Button">
+            <Border Background="{TemplateBinding Background}" Cursor="Hand" CornerRadius="10"
+                Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
+                    BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
+
+    <Grid x:Name="mainRoot" Background="#333">
+        <Grid x:Name="gameRoot">
+            <Grid.Effect>
+                <BlurEffect Radius="6" />
+            </Grid.Effect>
+            <Canvas x:Name="gameCanvas" Background="White" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                    Margin="0 50 0 0">
+            </Canvas>
+            <Button x:Name="openMenuButton" Width="35" Height="35" Background="Transparent"
+                Template="{StaticResource CustomButtonTemplate}" Margin="0 7 12 5"
+                VerticalAlignment="Top" HorizontalAlignment="Right" Click="OpenMenu">
+                <Image Source="/images/menu_icon.png" />
+            </Button>
+            <TextBlock Text="Счет: 0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"
+                       x:Name="scoreText" FontSize="20" Margin="20 10"/>
+        </Grid>
+        <Grid x:Name="menuRoot" Background="Transparent">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Click="PlayButton_Click" Template="{StaticResource MenuButtonTemplate}">
+                    <Image Source="/images/play_icon.png" Width="60" Height="60" />
+                </Button>
+                <Button Click="ReplayButton_Click" Template="{StaticResource MenuButtonTemplate}" Margin="20 0 0 0">
+                    <Image Source="/images/replay_icon.png" Width="60" Height="60" />
+                </Button>
+                <Button Click="OpenSettings" Template="{StaticResource MenuButtonTemplate}" Margin="20 0 20 0">
+                    <Image Source="/images/settings_icon.png" Width="60" Height="60" />
+                </Button>
+                <Button Click="Exit" Template="{StaticResource MenuButtonTemplate}">
+                    <Image Source="/images/exit_icon.png" Width="60" Height="60" />
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="levelSelectionMenu" Visibility="Collapsed" Opacity="0">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button x:Name="easySelectButton" Background="Green" Width="240" Height="50" Click="LevelSelected"
+                    Template="{StaticResource levelSelectionButtonTemplate}" BorderThickness="1" BorderBrush="Black">
+                    <TextBlock Text="Легко" Foreground="White" FontSize="20" />
+                </Button>
+                <Button x:Name="normallySelectButton" Background="Orange" Width="240" Height="50" Margin="0 30 0 30" Click="LevelSelected"
+                    Template="{StaticResource levelSelectionButtonTemplate}" BorderThickness="1" BorderBrush="Black">
+                    <TextBlock Text="Нормально" Foreground="White" FontSize="20" />
+                </Button>
+                <Button x:Name="hardSelectButton" Background="DarkRed" Width="240" Height="50" Click="LevelSelected"
+                    Template="{StaticResource levelSelectionButtonTemplate}" BorderThickness="1" BorderBrush="Black">
+                    <TextBlock Text="Сложно" Foreground="White" FontSize="20" />
+                </Button>
+            </StackPanel>
+        </Grid>
+        <TextBlock x:Name="countdownText" Text="3" FontSize="10" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+        <TextBlock x:Name="finalText" Text="Игра окончена!" FontSize="30" FontFamily="Arial Rounded MT Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Opacity="0" Visibility="Collapsed"/>
+    </Grid>
+</Window>
