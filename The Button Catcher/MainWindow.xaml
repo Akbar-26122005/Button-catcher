@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:The_Button_Catcher"
         mc:Ignorable="d" Icon="/images/extension.png"
-        Title="The Button Catcher" Height="500" Width="800">
+        Title="The Button Catcher"
+        Height="500" Width="800" MinHeight="500" MinWidth="800">
     <Window.Resources>
         <Storyboard x:Key="IncreasingTransparency">
             <DoubleAnimation To="1" Duration="0:0:0.3" Storyboard.TargetProperty="Opacity" />
